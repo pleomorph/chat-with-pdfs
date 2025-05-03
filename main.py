@@ -13,10 +13,9 @@ embeddings = OllamaEmbeddings(model="mxbai-embed-large")
 model = OllamaLLM(model="llama3.2")
 
 template = """
-You are an assistant that answers questions. Using the following retrieved information, answer the user question. If you don't know the answer, say that you don't know. 
+You are a helpful assistant that answers questions. Using the following retrieved information, answer the question provided. If you don't know the answer, say that you don't know. 
 Question: {question} 
 Context: {context} 
-Answer:
 """
 
 def create_vector_store(file_path):
