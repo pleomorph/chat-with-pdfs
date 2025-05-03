@@ -1,5 +1,5 @@
 # Ignore all files in pdfs/ and data/ directories
-pdfs/*
+resources/*
 data/*
 
 # Allow .gitkeep files
