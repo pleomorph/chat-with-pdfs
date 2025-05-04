@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from langchain_community.document_loaders import PyPDFLoader, UnstructuredWordDocumentLoader, UnstructuredFileLoader, UnstructuredHTMLLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
@@ -20,6 +21,12 @@ Context: {context}
 
 def create_vector_store_from_directory(directory):
     print(f"Creating vector store from files in {directory}")
+
+    # Log the date and time the function is run
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open("vector_store_log.txt", "a") as log_file:
+        log_file.write(f"Vector store created on: {current_time}\n")
+
     documents = []
 
     for file_name in os.listdir(directory):
@@ -63,12 +70,15 @@ def load_vector_store():
     return vector_db
 
 def check_if_vector_store_exists():
-  try:
-    vector_db = FAISS.load_local(vector_db_directory, embeddings, allow_dangerous_deserialization=True)  # Enable deserialization
-    return True
-  except Exception as e:
-    print(f"Error loading vector store: {e}")
-    return False
+    try:
+        if os.path.exists("vector_store_log.txt"):
+            with open("vector_store_log.txt", "r") as log_file:
+                return log_file.read()
+        else:
+            return None
+    except Exception as e:
+        print(f"Error loading vector store: {e}")
+        return None
 
 def retrieve_docs(query, k=4): # k = number of documents to retrieve
   db = load_vector_store()

@@ -3,7 +3,7 @@ resources/*
 data/*
 
 # Allow .gitkeep files
-!pdfs/.gitkeep
+!resources/.gitkeep
 !data/.gitkeep
 
 # Byte-compiled / optimized / DLL files
